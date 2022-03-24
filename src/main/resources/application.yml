@@ -1,1 +1,21 @@
-
+spring:
+  datasource:
+    url: jdbc:postgresql://13.124.240.95:5432/dashmap
+    username: postgres
+    password: 1234
+    platform: postgres
+    driverClassName: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 4
+  jpa:
+    hibernate:
+      ddl-auto: none
+    generate-ddl: false
+    show-sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        format_sql: true
+server:
+  port: 80
