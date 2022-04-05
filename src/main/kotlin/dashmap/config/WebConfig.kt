@@ -1,28 +1,49 @@
 package dashmap.config
 
-import org.springframework.beans.factory.annotation.Autowired
+import dashmap.auth.JwtAuthInterceptor
+import dashmap.auth.UserIdArgumentResolver
+import io.netty.resolver.DefaultAddressResolverGroup
+import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.security.config.annotation.web.builders.HttpSecurity
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
+import org.springframework.http.client.reactive.ReactorClientHttpConnector
+import org.springframework.web.method.support.HandlerMethodArgumentResolver
+import org.springframework.web.reactive.function.client.WebClient
+import org.springframework.web.servlet.config.annotation.CorsRegistry
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
+import reactor.netty.http.client.HttpClient
 
 @Configuration
-@EnableWebSecurity
-class SecurityConfig : WebSecurityConfigurerAdapter() {
+class WebConfig(
+    val jwtAuthInterceptor: JwtAuthInterceptor,
+    val userIdArgumentResolver: UserIdArgumentResolver
+) : WebMvcConfigurer {
 
-    override fun configure(http: HttpSecurity?) {
-        http
-            ?.authorizeRequests()
-            ?.antMatchers("/api/users")?.permitAll()
-            ?.anyRequest()?.authenticated()
-            ?.and()
-            ?.csrf()?.disable()
-            ?.oauth2Login()
-            ?.loginPage("/oauth2login")
-            ?.redirectionEndpoint()
-            ?.baseUri("/oauth2/callback/*")
-            ?.and()
-            ?.userInfoEndpoint()?.userService()
+    @Bean
+    fun httpClient(): HttpClient {
+        return HttpClient.create()
+            .resolver(DefaultAddressResolverGroup.INSTANCE)
+    }
 
+    @Bean
+    fun webClient(httpClient: HttpClient): WebClient {
+        return WebClient.builder()
+            .clientConnector(ReactorClientHttpConnector(httpClient))
+            .build()
+    }
+
+    override fun addCorsMappings(registry: CorsRegistry) {
+        registry.addMapping("/**")
+            .allowedOrigins("http://localhost:3000")
+            .allowedMethods("*")
+    }
+
+    override fun addInterceptors(registry: InterceptorRegistry) {
+        registry.addInterceptor(jwtAuthInterceptor)
+            .addPathPatterns("/api/**")
+    }
+
+    override fun addArgumentResolvers(resolvers: MutableList<HandlerMethodArgumentResolver>) {
+        resolvers.add(userIdArgumentResolver)
     }
 }
