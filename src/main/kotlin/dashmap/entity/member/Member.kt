@@ -7,7 +7,8 @@ import javax.persistence.*
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@ToString(of = ["id", "oauthId", "email", "nickname", "introduction", "role"])
+@Table(name = "member")
+@ToString(of = ["id", "oauthId", "email", "nickname", "role"])
 class Member(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,8 +24,6 @@ class Member(
     var nickname: String,
 
     var profileImageUrl: String?,
-
-    var introduction: String?,
 
     @Enumerated(value = EnumType.STRING)
     var role: Role
