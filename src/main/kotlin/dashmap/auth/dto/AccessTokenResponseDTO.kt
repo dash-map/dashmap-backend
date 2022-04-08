@@ -6,9 +6,9 @@ import lombok.ToString
 
 @ToString
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
-class AccessTokenResponseDTO(
-    private val accessToken: String,
-    private val tokenType: String,
-    private val scope: String
+data class AccessTokenResponseDTO(
+    val accessToken: String,
+    val tokenType: String,
+    val scope: String
 ) {
 }

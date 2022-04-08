@@ -6,12 +6,9 @@ import lombok.Builder
 
 @Builder
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
-class AccessTokenRequestDTO(
-    private val clientId: String,
-    private val clientSecret: String,
-    private val code: String
+data class AccessTokenRequestDTO(
+    val clientId: String,
+    val clientSecret: String,
+    val code: String
 ) {
-    init {
-        
-    }
 }

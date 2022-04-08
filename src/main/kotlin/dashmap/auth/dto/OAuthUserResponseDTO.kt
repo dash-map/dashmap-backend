@@ -1,7 +1,8 @@
 package dashmap.auth.dto
 
-class OAuthUserResponseDTO(
-    private val login: String,
-    private val avatarUrl: String
+data class OAuthUserResponseDTO(
+    val login: String,
+    val avatar_url: String,
+    val email: String
 ) {
 }
