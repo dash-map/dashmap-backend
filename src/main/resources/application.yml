@@ -8,8 +8,9 @@ spring:
     hikari:
       maximum-pool-size: 4
   jpa:
+    open-in-view: false
     hibernate:
-      ddl-auto: none
+      ddl-auto: create-drop
     generate-ddl: false
     show-sql: true
     database: postgresql
@@ -17,5 +18,15 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
+github:
+  client-id: e478d9cea0fa33472386
+  client-secret: 73c3713db87e46e311edcb45af2ce0bc64e304f1
+  access-token-uri: https://github.com/login/oauth/access_token
+  user-uri: https://api.github.com/user
+jwt:
+  issuer: dash-map
+  secret-key: dash-map-secret
+
 server:
   port: 80
