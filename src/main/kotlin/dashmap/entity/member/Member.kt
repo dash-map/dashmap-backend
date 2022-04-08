@@ -1,5 +1,6 @@
 package dashmap.entity.member
 
+import dashmap.auth.dto.OAuthUserResponseDTO
 import lombok.AccessLevel
 import lombok.NoArgsConstructor
 import lombok.ToString
@@ -15,18 +16,24 @@ class Member(
     var id: Long? = null,
 
     @Column(unique = true)
-    var oauthId: String,
-
-    @Column(unique = true)
     var email: String?,
 
     @Column(unique = true)
-    var nickname: String,
+    var name: String?,
 
     var profileImageUrl: String?,
 
     @Enumerated(value = EnumType.STRING)
-    var role: Role
+    var role: Role = Role.USER
 ) {
-
+    companion object {
+        fun of(user: OAuthUserResponseDTO): Member {
+            return Member(
+                null,
+                user.email,
+                user.login,
+                user.avatar_url
+            )
+        }
+    }
 }
