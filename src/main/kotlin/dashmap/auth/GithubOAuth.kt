@@ -12,19 +12,18 @@ import org.springframework.web.reactive.function.client.awaitBody
 
 @Component
 class GithubOAuth(
-    val TOKEN: String = "token",
     val webClient: WebClient,
 ): OAuth {
-    @Value("\${github.client-id}")
+    @Value("\${github.access-token-uri}")
     private val accessTokenUri: String? = null
 
-    @Value("\${github.client-secret}")
+    @Value("\${github.user-uri}")
     private val userUri: String? = null
 
-    @Value("\${github.access-token-uri}")
+    @Value("\${github.client-id}")
     private val clientId: String? = null
 
-    @Value("\${github.user-uri}")
+    @Value("\${github.client-secret}")
     private val clientSecret: String? = null
 
     override suspend fun getToken(code: String): AccessTokenResponseDTO {
@@ -33,10 +32,12 @@ class GithubOAuth(
             clientSecret.toString(),
             code
         )
+        println("AccessTokenRequest" + accessTokenRequest)
+        val url = accessTokenUri + "?client_id=" + accessTokenRequest.clientId + "&client_secret=" +
+                accessTokenRequest.clientSecret + "&code=" + accessTokenRequest.code
         return webClient.post()
-            .uri(accessTokenUri.toString())
+            .uri(url)
             .accept(MediaType.APPLICATION_JSON)
-            .bodyValue(accessTokenRequest)
             .retrieve()
             .awaitBody<AccessTokenResponseDTO>()
     }
@@ -46,7 +47,7 @@ class GithubOAuth(
         return webClient.get()
             .uri(userUri.toString())
             .accept(MediaType.APPLICATION_JSON)
-            .header(HttpHeaders.AUTHORIZATION, TOKEN + " " + accessToken)
+            .header(HttpHeaders.AUTHORIZATION, "token $accessToken")
             .retrieve()
             .awaitBody<OAuthUserResponseDTO>()
     }
