@@ -28,5 +28,17 @@ jwt:
   issuer: dash-map
   secret-key: dash-map-secret
 
+cloud:
+  aws:
+    stack:
+      auto: false
+    region:
+      static: ap-northeast-2
+    credentials:
+      access-key: AKIAXVMZ2J7QNWU6BU5Q
+      secret-key: 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
+    s3:
+      bucket: dash-map
+
 server:
   port: 80

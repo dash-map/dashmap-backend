@@ -10,10 +10,12 @@ import dashmap.web.response.AuthUserResponse
 import org.springframework.stereotype.Service
 
 @Service
-class UserService(
+class MemberService(
     val oauth: OAuth,
     val userRepository: MemberRepository,
-    val jwtService: JwtService
+
+    val jwtService: JwtService,
+    val s3Service: S3Service
 ) {
     suspend fun login(code: String): AuthUserResponse {
         val token: AccessTokenResponseDTO = oauth.getToken(code)

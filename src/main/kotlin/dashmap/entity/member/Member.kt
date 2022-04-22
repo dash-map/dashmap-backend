@@ -13,18 +13,19 @@ import javax.persistence.*
 class Member(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null,
+    val id: Long? = null,
 
     @Column(unique = true)
-    var email: String?,
+    val email: String?,
 
     @Column(unique = true)
-    var name: String?,
+    val name: String?,
 
-    var profileImageUrl: String?,
+    val profileImageUrl: String?,
 
     @Enumerated(value = EnumType.STRING)
-    var role: Role = Role.USER
+    val role: Role = Role.USER,
+
 ) {
     companion object {
         fun of(user: OAuthUserResponseDTO): Member {
