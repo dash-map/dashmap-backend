@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://13.124.240.95:5432/dashmap
+    url: jdbc:postgresql://13.124.240.95:5432/dashmapdb
     username: postgres
     password: 1234
     platform: postgres
