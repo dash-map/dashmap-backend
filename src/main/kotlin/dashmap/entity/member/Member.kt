@@ -1,6 +1,8 @@
 package dashmap.entity.member
 
 import dashmap.auth.dto.OAuthUserResponseDTO
+import dashmap.entity.member.crown.Crown
+import dashmap.entity.member.quest.Quest
 import lombok.AccessLevel
 import lombok.NoArgsConstructor
 import lombok.ToString
@@ -26,6 +28,11 @@ class Member(
     @Enumerated(value = EnumType.STRING)
     val role: Role = Role.USER,
 
+    @Transient
+    val crown: Crown = Crown(),
+
+    @Transient
+    val quest: Quest = Quest()
 ) {
     companion object {
         fun of(user: OAuthUserResponseDTO): Member {
