@@ -33,13 +33,14 @@ class GithubOAuth(
             code
         )
         println("AccessTokenRequest" + accessTokenRequest)
-        val url = accessTokenUri + "?client_id=" + accessTokenRequest.clientId + "&client_secret=" +
-                accessTokenRequest.clientSecret + "&code=" + accessTokenRequest.code
+//        val url = accessTokenUri + "?client_id=" + accessTokenRequest.clientId + "&client_secret=" +
+//                accessTokenRequest.clientSecret + "&code=" + accessTokenRequest.code
         return webClient.post()
-            .uri(url)
+            .uri(accessTokenUri.toString())
             .accept(MediaType.APPLICATION_JSON)
+            .bodyValue(accessTokenRequest)
             .retrieve()
-            .awaitBody<AccessTokenResponseDTO>()
+            .awaitBody()
     }
 
     override suspend fun getUserInfo(accessToken: String): OAuthUserResponseDTO {
@@ -49,6 +50,6 @@ class GithubOAuth(
             .accept(MediaType.APPLICATION_JSON)
             .header(HttpHeaders.AUTHORIZATION, "token $accessToken")
             .retrieve()
-            .awaitBody<OAuthUserResponseDTO>()
+            .awaitBody()
     }
 }

@@ -21,7 +21,7 @@ spring:
 
 github:
   client-id: e478d9cea0fa33472386
-  client-secret: 73c3713db87e46e311edcb45af2ce0bc64e304f1
+  client-secret: ffe57e25261340b2982cfb3ba16b07198f7df105
   access-token-uri: https://github.com/login/oauth/access_token
   user-uri: https://api.github.com/user
 jwt:
