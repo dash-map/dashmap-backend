@@ -7,6 +7,8 @@ import dashmap.auth.service.JwtService
 import dashmap.entity.member.Member
 import dashmap.entity.member.MemberRepository
 import dashmap.web.response.AuthUserResponse
+import dashmap.web.response.UserResponse
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 
 @Service
@@ -17,6 +19,14 @@ class MemberService(
     val jwtService: JwtService,
     val s3Service: S3Service
 ) {
+
+    fun findUserById(userId: Long): UserResponse {
+        val user: Member? = userRepository.findByIdOrNull(userId)
+        user?.let {
+            return UserResponse.of(it)
+        } ?: throw Exception("User is not Exist")
+    }
+
     suspend fun login(code: String): AuthUserResponse {
         val token: AccessTokenResponseDTO = oauth.getToken(code)
         println(token)
