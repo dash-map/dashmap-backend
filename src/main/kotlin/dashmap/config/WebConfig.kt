@@ -20,7 +20,7 @@ import reactor.netty.http.client.HttpClient
 class WebConfig(
     val jwtAuthInterceptor: JwtAuthInterceptor,
     val userIdArgumentResolver: UserIdArgumentResolver
-) : WebMvcConfigurer {
+): WebMvcConfigurer {
 
     @Bean
     fun httpClient(): HttpClient {
@@ -37,7 +37,7 @@ class WebConfig(
 
     override fun addCorsMappings(registry: CorsRegistry) {
         registry.addMapping("/**")
-            .allowedOrigins("http://localhost:3000")
+            .allowedOrigins("http://localhost:3000", "http://dashmap.kro.kr")
             .allowedMethods("*")
     }
 
