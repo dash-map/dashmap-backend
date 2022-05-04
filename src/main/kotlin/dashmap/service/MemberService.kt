@@ -7,14 +7,26 @@ import dashmap.auth.service.JwtService
 import dashmap.entity.member.Member
 import dashmap.entity.member.MemberRepository
 import dashmap.web.response.AuthUserResponse
+import dashmap.web.response.UserResponse
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 
 @Service
-class UserService(
+class MemberService(
     val oauth: OAuth,
     val userRepository: MemberRepository,
-    val jwtService: JwtService
+
+    val jwtService: JwtService,
+    val s3Service: S3Service
 ) {
+
+    fun findUserById(userId: Long): UserResponse {
+        val user: Member? = userRepository.findByIdOrNull(userId)
+        user?.let {
+            return UserResponse.of(it)
+        } ?: throw Exception("User is not Exist")
+    }
+
     suspend fun login(code: String): AuthUserResponse {
         val token: AccessTokenResponseDTO = oauth.getToken(code)
         println(token)
@@ -40,6 +52,6 @@ class UserService(
     }
 
     fun findUserByName(name: String): Member {
-        return userRepository.findByName(name) ?: throw Exception("Can't Found User")
+        return userRepository.findByName(name) ?: throw Exception("User is not Exist")
     }
 }

@@ -3,6 +3,8 @@ package dashmap.config
 import dashmap.auth.JwtAuthInterceptor
 import dashmap.auth.UserIdArgumentResolver
 import io.netty.resolver.DefaultAddressResolverGroup
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration
+import org.springframework.cloud.aws.autoconfigure.context.ContextInstanceDataAutoConfiguration
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.client.reactive.ReactorClientHttpConnector
@@ -14,10 +16,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 import reactor.netty.http.client.HttpClient
 
 @Configuration
+@EnableAutoConfiguration(exclude = [ContextInstanceDataAutoConfiguration::class])
 class WebConfig(
     val jwtAuthInterceptor: JwtAuthInterceptor,
     val userIdArgumentResolver: UserIdArgumentResolver
-) : WebMvcConfigurer {
+): WebMvcConfigurer {
 
     @Bean
     fun httpClient(): HttpClient {
@@ -34,7 +37,7 @@ class WebConfig(
 
     override fun addCorsMappings(registry: CorsRegistry) {
         registry.addMapping("/**")
-            .allowedOrigins("http://localhost:3000")
+            .allowedOrigins("http://localhost:3000", "http://dashmap.kro.kr")
             .allowedMethods("*")
     }
 

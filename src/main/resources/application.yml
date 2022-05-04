@@ -1,0 +1,51 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://13.124.240.95:5432/dashmapdb
+    username: postgres
+    password: 1234
+    platform: postgres
+    driverClassName: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 4
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: create-drop
+    generate-ddl: false
+    show-sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        format_sql: true
+
+github:
+  client-id: e478d9cea0fa33472386
+  client-secret: ffe57e25261340b2982cfb3ba16b07198f7df105
+  access-token-uri: https://github.com/login/oauth/access_token
+  user-uri: https://api.github.com/user
+jwt:
+  issuer: dash-map
+  secret-key: dash-map-secret
+
+cloud:
+  aws:
+    stack:
+      auto: false
+    region:
+      static: ap-northeast-2
+    credentials:
+      access-key: AKIAXVMZ2J7QNWU6BU5Q
+      secret-key: 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
+    s3:
+      bucket: dash-map
+
+logging:
+  level:
+    com:
+      amazonaws:
+        util:
+          EC2MetadataUtils: error
+
+server:
+  port: 80
