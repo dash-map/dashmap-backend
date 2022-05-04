@@ -52,6 +52,6 @@ class MemberService(
     }
 
     fun findUserByName(name: String): Member {
-        return userRepository.findByName(name) ?: throw Exception("Can't Found User")
+        return userRepository.findByName(name) ?: throw Exception("User is not Exist")
     }
 }
