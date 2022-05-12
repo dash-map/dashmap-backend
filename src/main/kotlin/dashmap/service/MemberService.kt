@@ -17,7 +17,6 @@ class MemberService(
     val userRepository: MemberRepository,
 
     val jwtService: JwtService,
-    val s3Service: S3Service
 ) {
 
     fun findUserById(userId: Long): UserResponse {
@@ -38,13 +37,13 @@ class MemberService(
         if (verifyUser(userName)) {
             val user = findUserByName(userName)
             val jwtToken = jwtService.createKey(user)
-            return AuthUserResponse.of(user, jwtToken)
+            return AuthUserResponse.of(user, jwtToken, token.accessToken)
         }
 
         val user: Member = Member.of(userInfo)
         userRepository.save(user)
         val jwtToken = jwtService.createKey(user)
-        return AuthUserResponse.of(user, jwtToken)
+        return AuthUserResponse.of(user, jwtToken, token.accessToken)
     }
 
     fun verifyUser(userName: String): Boolean {

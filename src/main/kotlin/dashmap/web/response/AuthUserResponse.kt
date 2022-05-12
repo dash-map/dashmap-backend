@@ -7,16 +7,18 @@ data class AuthUserResponse(
     val email: String?,
     val name: String?,
     val profileImageUrl: String?,
-    val jwt: String
+    val jwt: String,
+    val access_token: String
 ) {
     companion object {
-        fun of(member: Member, token: String): AuthUserResponse {
+        fun of(member: Member, token: String, access_token: String): AuthUserResponse {
             return AuthUserResponse(
                 member.id,
                 member.email,
                 member.name,
                 member.profileImageUrl,
-                token
+                token,
+                access_token
             )
         }
     }
