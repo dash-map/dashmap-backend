@@ -2,14 +2,13 @@ package dashmap.entity.member
 
 import dashmap.auth.dto.OAuthUserResponseDTO
 import dashmap.entity.member.crown.Crown
-import dashmap.entity.member.quest.Quest
+import dashmap.entity.member.progress.Progress
 import lombok.AccessLevel
 import lombok.NoArgsConstructor
 import lombok.ToString
 import javax.persistence.*
 
 @Entity
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "member")
 @ToString(of = ["id", "oauthId", "email", "nickname", "role"])
 class Member(
@@ -22,7 +21,6 @@ class Member(
 
     @Column(unique = true)
     val name: String?,
-
     val profileImageUrl: String?,
 
     @Enumerated(value = EnumType.STRING)
@@ -32,7 +30,7 @@ class Member(
     val crown: Crown = Crown(),
 
     @Transient
-    val quest: Quest = Quest()
+    val progress: Progress = Progress()
 ) {
     companion object {
         fun of(user: OAuthUserResponseDTO): Member {

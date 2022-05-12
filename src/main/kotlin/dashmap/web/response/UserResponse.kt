@@ -2,14 +2,14 @@ package dashmap.web.response
 
 import dashmap.entity.member.Member
 import dashmap.entity.member.crown.Crown
-import dashmap.entity.member.quest.Quest
+import dashmap.entity.member.progress.Progress
 
 data class UserResponse(
     val email: String?,
     val name: String?,
     val profileImageUrl: String?,
     val crown: Crown,
-    val quest: Quest
+    val progress: Progress
 ) {
     companion object {
         fun of(member: Member): UserResponse {
@@ -18,7 +18,7 @@ data class UserResponse(
                 member.name,
                 member.profileImageUrl,
                 Crown(),
-                Quest()
+                Progress()
             )
         }
     }
