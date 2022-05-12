@@ -10,6 +10,7 @@ import dashmap.web.response.AuthUserResponse
 import dashmap.web.response.UserResponse
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
+import javax.transaction.Transactional
 
 @Service
 class MemberService(
@@ -26,6 +27,7 @@ class MemberService(
         } ?: throw Exception("User is not Exist")
     }
 
+    @Transactional
     suspend fun login(code: String): AuthUserResponse {
         val token: AccessTokenResponseDTO = oauth.getToken(code)
         println(token)
