@@ -1,11 +1,12 @@
-package dashmap.entity.member.problem
+package dashmap.entity.problem
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import dashmap.entity.quest.Quest
 import javax.persistence.*
 
 @Entity
-@Table(name = "problem")
-class Problem(
+@Table(name = "question")
+class Question(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
@@ -13,6 +14,7 @@ class Problem(
 
     @ManyToOne
     @JoinColumn(name = "quest_id")
+    @JsonIgnore
     val quest: Quest?
 ) {
 }
