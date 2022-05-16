@@ -1,4 +1,4 @@
-package dashmap.controller
+package dashmap.web
 
 import dashmap.auth.annotation.LoginRequired
 import dashmap.service.MemberService
