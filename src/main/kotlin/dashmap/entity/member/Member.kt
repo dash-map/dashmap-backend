@@ -23,14 +23,6 @@ class Member(
 
     @Enumerated(value = EnumType.STRING)
     var role: Role,
-
-//    @OneToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "crown_id")
-//    var crown: Crown,
-//
-//    @OneToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "progress_id")
-//    var progress: Progress,
 ) {
     companion object {
         fun of(user: OAuthUserResponseDTO): Member {
@@ -40,8 +32,6 @@ class Member(
                 user.login,
                 user.avatar_url,
                 Role.USER,
-//                crown,
-//                progress
             )
         }
     }

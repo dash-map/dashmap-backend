@@ -8,17 +8,17 @@ data class UserResponse(
     val email: String?,
     val name: String?,
     val profileImageUrl: String?,
+    val progress: Progress,
     val crown: Crown,
-    val progress: Progress
 ) {
     companion object {
-        fun of(member: Member): UserResponse {
+        fun of(member: Member, progress: Progress, crown: Crown): UserResponse {
             return UserResponse(
                 member.email,
                 member.name,
                 member.profileImageUrl,
-                Crown(),
-                Progress()
+                progress,
+                crown
             )
         }
     }
