@@ -17,7 +17,7 @@ class MemberController(
     val memberService: MemberService
 ) {
 
-    @LoginRequired
+    //@LoginRequired
     @GetMapping("/user/{userId}")
     fun userInfo(@PathVariable("userId") userId: Long): ResponseEntity<UserResponse> {
         return ResponseEntity.ok(memberService.findUserById(userId))
