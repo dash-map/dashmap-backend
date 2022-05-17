@@ -9,13 +9,27 @@ class Crown(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
-    var isFeClear: Boolean = false,
-    var isBeClear: Boolean = false,
-    var isAosClear: Boolean = false,
-    var isIosClear: Boolean = false,
-    var isAiClear: Boolean = false,
+    var isFeClear: Boolean,
+    var isBeClear: Boolean,
+    var isAosClear: Boolean,
+    var isIosClear: Boolean,
+    var isAiClear: Boolean,
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "progress")
-    var member: Member? = null
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    var member: Member?
 ) {
+    companion object {
+        fun of(member: Member): Crown {
+            return Crown(
+                null,
+                false,
+                false,
+                false,
+                false,
+                false,
+                member
+            )
+        }
+    }
 }
