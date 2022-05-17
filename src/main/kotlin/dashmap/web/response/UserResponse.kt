@@ -1,8 +1,8 @@
 package dashmap.web.response
 
 import dashmap.entity.member.Member
-import dashmap.entity.member.crown.Crown
-import dashmap.entity.member.progress.Progress
+import dashmap.entity.crown.Crown
+import dashmap.entity.progress.Progress
 
 data class UserResponse(
     val email: String?,

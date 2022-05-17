@@ -1,10 +1,8 @@
 package dashmap.entity.member
 
 import dashmap.auth.dto.OAuthUserResponseDTO
-import dashmap.entity.member.crown.Crown
-import dashmap.entity.member.progress.Progress
-import lombok.AccessLevel
-import lombok.NoArgsConstructor
+import dashmap.entity.crown.Crown
+import dashmap.entity.progress.Progress
 import lombok.ToString
 import javax.persistence.*
 
@@ -24,21 +22,26 @@ class Member(
     val profileImageUrl: String?,
 
     @Enumerated(value = EnumType.STRING)
-    val role: Role = Role.USER,
+    val role: Role,
 
-    @Transient
-    val crown: Crown = Crown(),
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "crown_id")
+    val crown: Crown,
 
-    @Transient
-    val progress: Progress = Progress()
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "progress_id")
+    val progress: Progress,
 ) {
     companion object {
-        fun of(user: OAuthUserResponseDTO): Member {
+        fun of(user: OAuthUserResponseDTO, crown: Crown, progress: Progress): Member {
             return Member(
                 null,
                 user.email,
                 user.login,
-                user.avatar_url
+                user.avatar_url,
+                Role.USER,
+                crown,
+                progress
             )
         }
     }
