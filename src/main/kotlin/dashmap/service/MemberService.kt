@@ -4,28 +4,39 @@ import dashmap.auth.OAuth
 import dashmap.auth.dto.AccessTokenResponseDTO
 import dashmap.auth.dto.OAuthUserResponseDTO
 import dashmap.auth.service.JwtService
+import dashmap.entity.crown.Crown
+import dashmap.entity.crown.CrownRepository
 import dashmap.entity.member.Member
 import dashmap.entity.member.MemberRepository
+import dashmap.entity.progress.Progress
+import dashmap.entity.progress.ProgressRepository
 import dashmap.web.response.AuthUserResponse
 import dashmap.web.response.UserResponse
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
+import javax.transaction.Transactional
 
 @Service
 class MemberService(
     val oauth: OAuth,
     val userRepository: MemberRepository,
+    val progressRepository: ProgressRepository,
+    val crownRepository: CrownRepository,
 
     val jwtService: JwtService,
 ) {
 
+    @Transactional
     fun findUserById(userId: Long): UserResponse {
         val user: Member? = userRepository.findByIdOrNull(userId)
         user?.let {
-            return UserResponse.of(it)
+            val pro = progressRepository.findByMember(user)
+            val crown = crownRepository.findByMember(user)
+            return UserResponse.of(it, pro, crown)
         } ?: throw Exception("User is not Exist")
     }
 
+    @Transactional
     suspend fun login(code: String): AuthUserResponse {
         val token: AccessTokenResponseDTO = oauth.getToken(code)
         println(token)
@@ -42,6 +53,8 @@ class MemberService(
 
         val user: Member = Member.of(userInfo)
         userRepository.save(user)
+        progressRepository.save(Progress.of(user))
+        crownRepository.save(Crown.of(user))
         val jwtToken = jwtService.createKey(user)
         return AuthUserResponse.of(user, jwtToken, token.accessToken)
     }

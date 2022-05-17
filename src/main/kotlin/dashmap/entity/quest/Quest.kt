@@ -1,6 +1,7 @@
 package dashmap.entity.quest
 
-import dashmap.entity.member.problem.Problem
+import dashmap.entity.problem.Question
+import dashmap.web.response.QuestResponse
 import javax.persistence.*
 
 @Entity
@@ -8,11 +9,13 @@ import javax.persistence.*
 class Quest(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null,
-    val name: String?,
+    var id: Long? = null,
+    var name: String?,
+    var field: String?,
+    var problem: String?,
 
     @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], orphanRemoval = true, mappedBy = "quest")
-    val problems: List<Problem>?,
-    val answer: Long?
+    var questions: MutableList<Question>?,
+    var answer: Long?
 ) {
 }

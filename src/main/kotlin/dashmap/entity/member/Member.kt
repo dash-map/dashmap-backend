@@ -1,10 +1,8 @@
 package dashmap.entity.member
 
 import dashmap.auth.dto.OAuthUserResponseDTO
-import dashmap.entity.member.crown.Crown
-import dashmap.entity.member.progress.Progress
-import lombok.AccessLevel
-import lombok.NoArgsConstructor
+import dashmap.entity.crown.Crown
+import dashmap.entity.progress.Progress
 import lombok.ToString
 import javax.persistence.*
 
@@ -14,23 +12,17 @@ import javax.persistence.*
 class Member(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null,
+    var id: Long? = null,
 
     @Column(unique = true)
-    val email: String?,
+    var email: String?,
 
     @Column(unique = true)
-    val name: String?,
-    val profileImageUrl: String?,
+    var name: String?,
+    var profileImageUrl: String?,
 
     @Enumerated(value = EnumType.STRING)
-    val role: Role = Role.USER,
-
-    @Transient
-    val crown: Crown = Crown(),
-
-    @Transient
-    val progress: Progress = Progress()
+    var role: Role,
 ) {
     companion object {
         fun of(user: OAuthUserResponseDTO): Member {
@@ -38,7 +30,8 @@ class Member(
                 null,
                 user.email,
                 user.login,
-                user.avatar_url
+                user.avatar_url,
+                Role.USER,
             )
         }
     }
