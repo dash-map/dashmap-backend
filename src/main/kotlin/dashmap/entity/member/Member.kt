@@ -24,24 +24,24 @@ class Member(
     @Enumerated(value = EnumType.STRING)
     var role: Role,
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "crown_id")
-    var crown: Crown,
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "progress_id")
-    var progress: Progress,
+//    @OneToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "crown_id")
+//    var crown: Crown,
+//
+//    @OneToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "progress_id")
+//    var progress: Progress,
 ) {
     companion object {
-        fun of(user: OAuthUserResponseDTO, crown: Crown, progress: Progress): Member {
+        fun of(user: OAuthUserResponseDTO): Member {
             return Member(
                 null,
                 user.email,
                 user.login,
                 user.avatar_url,
                 Role.USER,
-                crown,
-                progress
+//                crown,
+//                progress
             )
         }
     }
