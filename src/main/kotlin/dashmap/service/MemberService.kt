@@ -4,8 +4,12 @@ import dashmap.auth.OAuth
 import dashmap.auth.dto.AccessTokenResponseDTO
 import dashmap.auth.dto.OAuthUserResponseDTO
 import dashmap.auth.service.JwtService
+import dashmap.entity.crown.Crown
+import dashmap.entity.crown.CrownRepository
 import dashmap.entity.member.Member
 import dashmap.entity.member.MemberRepository
+import dashmap.entity.progress.Progress
+import dashmap.entity.progress.ProgressRepository
 import dashmap.web.response.AuthUserResponse
 import dashmap.web.response.UserResponse
 import org.springframework.data.repository.findByIdOrNull
@@ -16,6 +20,8 @@ import javax.transaction.Transactional
 class MemberService(
     val oauth: OAuth,
     val userRepository: MemberRepository,
+    val progressRepository: ProgressRepository,
+    val crownRepository: CrownRepository,
 
     val jwtService: JwtService,
 ) {
@@ -42,7 +48,9 @@ class MemberService(
             return AuthUserResponse.of(user, jwtToken, token.accessToken)
         }
 
-        val user: Member = Member.of(userInfo)
+        val crown = crownRepository.save(Crown())
+        val progress = progressRepository.save(Progress())
+        val user: Member = Member.of(userInfo, crown, progress)
         userRepository.save(user)
         val jwtToken = jwtService.createKey(user)
         return AuthUserResponse.of(user, jwtToken, token.accessToken)
