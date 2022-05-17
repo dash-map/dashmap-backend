@@ -8,15 +8,15 @@ import javax.persistence.*
 class Progress(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null,
-    val feCount: Int = 0,
-    val beCount: Int = 0,
-    val aosCount: Int = 0,
-    val iosCount: Int = 0,
-    val aiCount: Int = 0,
+    var id: Long? = null,
+    var feCount: Int = 0,
+    var beCount: Int = 0,
+    var aosCount: Int = 0,
+    var iosCount: Int = 0,
+    var aiCount: Int = 0,
 
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "progress")
-    val member: Member? = null
+    var member: Member? = null
 ) {
 
 }

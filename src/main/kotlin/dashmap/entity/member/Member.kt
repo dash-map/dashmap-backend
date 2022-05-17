@@ -12,25 +12,25 @@ import javax.persistence.*
 class Member(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null,
+    var id: Long? = null,
 
     @Column(unique = true)
-    val email: String?,
+    var email: String?,
 
     @Column(unique = true)
-    val name: String?,
-    val profileImageUrl: String?,
+    var name: String?,
+    var profileImageUrl: String?,
 
     @Enumerated(value = EnumType.STRING)
-    val role: Role,
+    var role: Role,
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "crown_id")
-    val crown: Crown,
+    var crown: Crown,
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "progress_id")
-    val progress: Progress,
+    var progress: Progress,
 ) {
     companion object {
         fun of(user: OAuthUserResponseDTO, crown: Crown, progress: Progress): Member {

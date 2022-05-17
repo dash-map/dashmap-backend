@@ -9,13 +9,13 @@ import javax.persistence.*
 class Quest(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null,
-    val name: String?,
-    val field: String?,
-    val problem: String?,
+    var id: Long? = null,
+    var name: String?,
+    var field: String?,
+    var problem: String?,
 
     @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], orphanRemoval = true, mappedBy = "quest")
-    val questions: List<Question>?,
-    val answer: Long?
+    var questions: MutableList<Question>?,
+    var answer: Long?
 ) {
 }

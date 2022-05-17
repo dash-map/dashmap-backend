@@ -8,14 +8,14 @@ import javax.persistence.*
 class Crown(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null,
-    val isFeClear: Boolean = false,
-    val isBeClear: Boolean = false,
-    val isAosClear: Boolean = false,
-    val isIosClear: Boolean = false,
-    val isAiClear: Boolean = false,
+    var id: Long? = null,
+    var isFeClear: Boolean = false,
+    var isBeClear: Boolean = false,
+    var isAosClear: Boolean = false,
+    var isIosClear: Boolean = false,
+    var isAiClear: Boolean = false,
 
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "progress")
-    val member: Member? = null
+    var member: Member? = null
 ) {
 }

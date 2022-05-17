@@ -9,12 +9,12 @@ import javax.persistence.*
 class Question(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null,
-    val question: String?,
+    var id: Long? = null,
+    var question: String?,
 
     @ManyToOne
     @JoinColumn(name = "quest_id")
     @JsonIgnore
-    val quest: Quest?
+    var quest: Quest?
 ) {
 }
