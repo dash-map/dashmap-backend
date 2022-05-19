@@ -39,8 +39,9 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
 	implementation("com.auth0:java-jwt:3.8.2")
+    implementation("org.junit.jupiter:junit-jupiter:5.8.1")
 
-	compileOnly("org.projectlombok:lombok")
+    compileOnly("org.projectlombok:lombok")
 	runtimeOnly("org.postgresql:postgresql")
 	annotationProcessor("org.projectlombok:lombok")
 
