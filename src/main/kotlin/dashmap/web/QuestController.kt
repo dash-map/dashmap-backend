@@ -5,7 +5,7 @@ import dashmap.service.QuestService
 import dashmap.web.request.QuestRequest
 import dashmap.web.response.QuestResponse
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController
 class QuestController(
     val questService: QuestService
 ) {
-    @GetMapping("/quest")
+    @PostMapping("/quest")
     fun questInfo(@RequestBody request: QuestRequest): ResponseEntity<QuestResponse> {
         return ResponseEntity.ok(questService.findQuestById(request))
     }
