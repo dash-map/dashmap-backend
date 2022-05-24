@@ -2,12 +2,14 @@ package dashmap.web
 
 import dashmap.auth.annotation.LoginRequired
 import dashmap.service.QuestService
+import dashmap.web.request.AchieveCrownRequest
 import dashmap.web.request.QuestRequest
 import dashmap.web.response.QuestCountResponse
 import dashmap.web.response.QuestResponse
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
@@ -25,5 +27,10 @@ class QuestController(
     @GetMapping("/quests")
     fun questCount(): ResponseEntity<QuestCountResponse> {
         return ResponseEntity.ok(questService.findQuestCountByField())
+    }
+
+    @PutMapping("/crown")
+    fun achieveCrown(@RequestBody request: AchieveCrownRequest) {
+        questService.achieveCrown(request)
     }
 }

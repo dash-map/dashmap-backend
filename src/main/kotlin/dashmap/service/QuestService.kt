@@ -6,6 +6,7 @@ import dashmap.entity.member.MemberRepository
 import dashmap.entity.problem.QuestionRepository
 import dashmap.entity.progress.ProgressRepository
 import dashmap.entity.quest.QuestRepository
+import dashmap.web.request.AchieveCrownRequest
 import dashmap.web.request.QuestRequest
 import dashmap.web.response.QuestCountResponse
 import dashmap.web.response.QuestResponse
@@ -43,6 +44,20 @@ class QuestService(
         )
     }
 
+    fun achieveCrown(request: AchieveCrownRequest) {
+        val crown = crownRepository.findByIdOrNull(request.userId)
+        crown?.let {
+            when (request.field) {
+                "fe" -> crown.isFeClear = true
+                "be" -> crown.isBeClear = true
+                "aos" -> crown.isAosClear = true
+                "ios" -> crown.isIosClear = true
+                "ai" -> crown.isAiClear = true
+            }
+            crownRepository.save(it)
+        }
+    }
+
     private fun increaseFieldCount(member: Member, field: String, quest: Long) {
         val pro = progressRepository.findByMember(member)
         val changeValue = (quest - 1).toInt()
@@ -52,17 +67,6 @@ class QuestService(
             "aos" -> pro.aosCount = changeValue
             "ios" -> pro.iosCount = changeValue
             "ai" -> pro.aiCount = changeValue
-        }
-    }
-
-    private fun achieveCrown(member: Member, field: String) {
-        val crown = crownRepository.findByMember(member)
-        when (field) {
-            "fe" -> crown.isFeClear = true
-            "be" -> crown.isBeClear = true
-            "aos" -> crown.isAosClear = true
-            "ios" -> crown.isIosClear = true
-            "ai" -> crown.isAiClear = true
         }
     }
 }
