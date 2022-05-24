@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository
 @Repository
 interface QuestRepository : JpaRepository<Quest, Long> {
     fun findByFieldAndId(field: String, id: Long): Quest?
+    fun findAllByField(field: String): List<Quest>?
 }
