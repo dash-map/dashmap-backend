@@ -10,6 +10,8 @@ class Question(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
+
+    @Column(unique = true)
     var question: String?,
 
     @ManyToOne

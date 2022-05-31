@@ -1,7 +1,6 @@
 package dashmap.entity.quest
 
 import dashmap.entity.question.Question
-import dashmap.web.response.QuestResponse
 import javax.persistence.*
 
 @Entity
@@ -10,6 +9,8 @@ class Quest(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
+
+    @Column(unique = true)
     var name: String?,
     var field: String?,
     var problem: String?,
