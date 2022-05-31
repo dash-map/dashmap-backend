@@ -1,6 +1,6 @@
 package dashmap.web.response
 
-import dashmap.entity.problem.Question
+import dashmap.entity.question.Question
 
 data class QuestResponse(
     val quest: String?,

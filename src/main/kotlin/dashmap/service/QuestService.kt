@@ -3,7 +3,7 @@ package dashmap.service
 import dashmap.entity.crown.CrownRepository
 import dashmap.entity.member.Member
 import dashmap.entity.member.MemberRepository
-import dashmap.entity.problem.QuestionRepository
+import dashmap.entity.question.QuestionRepository
 import dashmap.entity.progress.ProgressRepository
 import dashmap.entity.quest.QuestRepository
 import dashmap.web.request.AchieveCrownRequest

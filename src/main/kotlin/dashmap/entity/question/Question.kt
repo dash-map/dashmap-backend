@@ -1,4 +1,4 @@
-package dashmap.entity.problem
+package dashmap.entity.question
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import dashmap.entity.quest.Quest

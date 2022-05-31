@@ -1,4 +1,4 @@
-package dashmap.entity.problem
+package dashmap.entity.question
 
 import dashmap.entity.quest.Quest
 import org.springframework.data.repository.CrudRepository

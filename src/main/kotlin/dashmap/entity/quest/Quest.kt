@@ -1,6 +1,6 @@
 package dashmap.entity.quest
 
-import dashmap.entity.problem.Question
+import dashmap.entity.question.Question
 import dashmap.web.response.QuestResponse
 import javax.persistence.*
 
