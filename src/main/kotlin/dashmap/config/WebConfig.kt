@@ -35,7 +35,7 @@ class WebConfig(
 
     override fun addCorsMappings(registry: CorsRegistry) {
         registry.addMapping("/**")
-            .allowedOrigins("http://localhost:3000", "http://dashmap.kro.kr")
+            .allowedOrigins("http://localhost:3000", "https://dashmap.shop", "https://dashmap-frontend.vercel.app")
             .allowedMethods("*")
     }
 
